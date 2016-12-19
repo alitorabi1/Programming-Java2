@@ -1,0 +1,4 @@
+Employee Name: John Smith
+Hours worked: 45.0
+Pay rate: 15.5
+Employee wages: 697.5

@@ -1,0 +1,429 @@
+﻿Inheritance, Polymorphism and Interfaces
+========================================
+Classes were introduced in previous days. Using classes, you can combine data and operations on that data in a single unit, 
+a process called encapsulation. Through encapsulation, an object becomes a self-contained entity. Operations can (directly) 
+access the data, but the internal state of an object cannot be manipulated directly.
+
+In addition to implementing encapsulation, classes have other capabilities. For instance, you can create new classes from existing classes. This important feature encourages code reuse and saves programmers an enormous amount of time. In Java, you can relate two or more classes in more than one way. This unit examines two common ways to relate classes — inheritance and composition (aggregation).
+
+
+Inheritance
+============
+Suppose that you want to design a class, PartTimeEmployee, to implement and process the characteristics of a part-time employee. 
+The main features associated with a part-time employee are:
+• the name, 
+• pay rate, and 
+• number of hours worked. 
+
+
+Suppose that you designed the class Person to implement a person’s name. Every part-time employee is a person. Therefore, rather than design the class PartTimeEmployee from scratch, we want to be able to extend the definition of the class Person by adding additional members (data and/or methods).
+
+Of course, we do not want to make the necessary changes directly to the class Person—that is, edit the class Person and add and/or delete members. We want to create a new class PartTimeEmployee without making any physical changes to the class Person, by adding only the members that are necessary to class PartTimeEmployee. For example, because the class Person already has data members to store the first name and last name, we will not include any such members in the class PartTimeEmployee. In fact, these data members will be inherited from the class Person. 
+As a demo, We will design the class PartTimeEmployee.
+
+
+In a previous day, we extensively studied and designed the class Clock to implement the time of day in a program. The class Clock has three data members (instance variables) to store the hours, minutes, and seconds. Certain applications might require that we also store the time zone. In this case, we want to extend the definition of the class Clock and create a class, ExtClock, to accommodate this new information. That is, we want to derive the class ExtClock by adding a data member—timeZone—and the necessary method members to manipulate the time.
+
+In Java, the mechanism that allows us to extend the definition of a class without making any physical changes to the existing class is inheritance. Inheritance can be viewed as an "is-a" relationship. For example, every (part-time) employee is a person. Similarly, every extended clock, ExtClock, is a Clock.
+
+Inheritance lets you create new classes from existing classes. Any new class that you create from an existing class is called a subclass or derived class; existing classes are called superclasses or base classes. The inheritance relationship enables a subclass to inherit features from its superclass. Furthermore, the subclass can add new features of its own.
+
+Therefore, rather than create completely new classes from scratch, you can take advantage of inheritance and reduce software complexity. Inheritance can be viewed as a treelike, or hierarchical, structure wherein a superclass is shown with its subclasses. 
+
+For example, Shape is the superclass. The classes Circle and Rectangle are derived from Shape, and the class Square is derived from Rectangle. Every
+Circle and every Rectangle is a Shape. Every Square is a Rectangle. 
+
+The general syntax to derive a class from an existing class is:
+
+modifier(s) class ClassName extends ExistingClassName modifier(s) {
+	memberList
+}
+
+In Java, extends is a reserved word.
+
+
+
+EXAMPLE 1
+=========
+Suppose that we have defined a class called Shape. The following statements specify that the class Circle is derived from Shape:
+
+public class Circle extends Shape {
+	.
+	.
+	.
+}
+
+
+The following rules about superclasses and subclasses should be kept in mind:
+======================================================
+1. The private members of the superclass are private to the superclass; 
+	hence, the members of the subclass(es) cannot access them directly. 
+	In other words, when you write the definitions of the methods of the subclass, you cannot access the private members 
+	of the superclass directly. (The next section explains how to access the private members of a superclass in its subclass.)
+2. The subclass can directly access the public members of the superclass.
+3. The subclass can include additional data and/or method members.
+4. The subclass can override, that is, redefine, the public methods of the superclass. In the subclass, you can have a method with 
+	the same name, number, and types of parameters as a method in the superclass. However, this redefinition is available 
+	only to the objects of the subclass, not to the objects of the superclass.
+5. All data members of the superclass are also data members of the subclass.
+
+Similarly, the methods of the superclass (unless overridden) are also the methods of the subclass. (Remember Rule 1 when accessing a member of the superclass in the subclass.)
+
+Each subclass, in turn, may become a superclass for a future subclass. Inheritance can be either single or multiple. In single inheritance, the subclass is derived from a single superclass; in multiple inheritance, the subclass is derived from more than one superclass. Java supports only single inheritance; that is, in Java a class can extend the definition of only one class.
+
+
+The next sections describe two important issues related to inheritance. 
+◘ The first issue is using the methods of a superclass in its subclass. While discussing this issue, we will also address how to access the private (data) members of the superclass in the subclass. 
+◘ The second key inheritance issue is related to the constructor. The constructor of a subclass cannot directly access the private data members of the superclass. Thus, you must ensure that private data members that are inherited from the superclass are initialized when a constructor of the subclass executes.
+
+Using Methods of the Superclass in a Subclass
+=============================================
+Suppose that a class SubClass is derived from a class SuperClass. Further assume that both SubClass and SuperClass have some data members. It then follows that the data members of the class SubClass are its own data members, together with the data members of SuperClass. Similarly, in addition to its own methods, the subclass also inherits the methods of the superclass. The subclass can give some of its methods the same signature as given by the superclass. For example, suppose that SuperClass contains a method, print, that prints the values of the data members of SuperClass. SubClass contains data members in addition to the data members inherited from SuperClass. Suppose that you want to include a method in SubClass that prints the data members of SubClass. You can give any name to this method. However, in the class SubClass, you can also name this method print (the same name used by SuperClass). This is called overriding, or redefining, the method of the superclass.
+
+To override a public method of the superclass in the subclass, the corresponding method in the subclass must have the same name, the same type, and the same formal parameter list. That is, to override a method of a superclass, in the subclass the method must be defined using the same signature and the same return type as in its superclass. If the corresponding method in the superclass and the subclass has the same name but different parameter lists, then this is method overloading in the subclass, which is also allowed. 
+
+Whether you override or overload a method of the superclass in the subclass, you must know how to specify a call to the method of the superclass that has the same name as that used by a method of the subclass. We illustrate these concepts with the help of an example. 
+
+
+Method overloading in Java occurs when two or more methods in the same class have the exact same name but different parameters (remember that method parameters accept values passed into the method). 
+Two methods would be considered to be “overloaded”  if one or both of these conditions is true:
+The conditions for method overloading
+1.) The number of parameters is different for the methods.
+2.) The parameter types are different (like changing a parameter that was a float to an int).
+
+If a derived class requires a different definition for an inherited method, then that method can be redefined in the derived class. This would be considered overriding. An overridden method would have the exact same method name, return type, number of parameters, and types of parameters as the method in the parent class, and the only difference would be the definition of the method.
+
+
+Another important point to remember is that overriding is a run time phenomenon – not a compile time phenomenon like method overloading.
+
+
+Consider the definition of the following class:
+public class Rectangle {
+   private double length;
+   private double width;
+
+   public Rectangle() {
+	length = 0;
+	width = 0;
+  }
+...
+}
+
+
+Now consider the following definition of the class Box, derived from the class Rectangle:
+
+public class Box extends Rectangle {
+   private double height;
+   public Box() {
+	//The definition is as given below
+   }
+
+   public Box(double l, double w, double h) {
+	//The definition is as given below
+  }
+...
+}
+
+
+From the definition of the class Box, it is clear that the class Box is derived from the class Rectangle. Therefore, all public members of Rectangle are public members of Box. The class Box overrides the methods toString and area, and overloads the method setDimension.
+
+In general, when writing the definitions of the methods of a subclass to specify a call to a public method of a superclass, you do the following:
+• If the subclass overrides a public method of the superclass, then you must specify a call to that public method of the superclass by using the
+reserved word super, followed by the dot operator, followed by the method name with an appropriate parameter list. 
+
+In this case, the general syntax to call a method of the superclass is:
+	super.methodName(parameters);
+
+• If the subclass does not override a public method of the superclass, you can specify a call to that public method by using the name of the method and an appropriate parameter list. 
+
+Next, let’s write the definition of the method toString of the class Box. 
+
+The class Box has three instance variables: length, width, and height. The method toString of the class Box prints the values of these three instance variables. To write the definition of the method toString of the class Box, remember the following:
+
+• The instance variables length and width are private members of the class Rectangle and so cannot be directly accessed in the class Box.
+
+Therefore, when writing the definition of the method toString of the class Box, you cannot directly reference length and width.
+
+• The instance variables length and width of the class Rectangle are accessible in the class Box through the public methods of the class Rectangle. Therefore, when writing the definition of the method toString of the class Box, you first call the method toString of the class Rectangle to print the values of length and width. After printing the values of length and width, you output the value of height.
+
+
+As stated above, to call the method toString of Rectangle in the definition of the method toString of Box, you must use the following statement:
+	
+	super.toString ();
+
+This statement ensures that you call the method toString of the superclass Rectangle, not of the class Box.
+
+The definition of the method toString of the class Box is:
+public String toString() {
+   return super.toString() //retrieve length and width
+	+ "; Height = " + height;
+}
+
+Let’s write the definitions of the remaining methods of the class Box:
+
+public void setDimension(double l, double w, double h) {
+   super.setDimension(l, w);
+   if (h >= 0) {
+	height = h;
+   } else {
+	height = 0;
+     }
+}
+
+
+
+The definition of the method getHeight is:
+public double getHeight() {
+   return height;
+}
+
+The method area of the class Box determines the surface area of the box. To do so, we need to access the length and width of the box, which are declared as private members of the class Rectangle. Therefore, we use the methods getLength and getWidth of the class Rectangle to retrieve the length and width, respectively. Because the class Box does not override the methods getLength and getWidth, we can call these methods of the class Rectangle without using the reserved word super.
+
+public double area() {
+   return 2 * (getLength() * getWidth()
+	+ getLength() * height
+	+ getWidth() * height);
+}
+
+
+The method volume of the class Box determines the volume of the box. To determine the box’s volume, you multiply the length, width, and height of the box or multiply the area of the base of the box by its height. Let’s write the definition of the method volume by using the second alternative. To do so, you can use the method area of the class Rectangle to determine the area of the base. Because the class Box overrides the method area, to specify a call to the method area of the class Rectangle, we use the reserved word super, as shown in the following definition:
+
+public double volume() {
+   return super.area() * height;
+}
+
+Note:
+======
+If a method of a class is declared final, it cannot be overridden in any subclass. The following is an example of a final method:
+public final void doAnything() {
+	...
+}
+
+
+
+Constructors of the Superclass and Subclass
+============================================
+A subclass can have its own private data members, so a subclass can also have its own constructors. A constructor typically serves to initialize the instance variables. When we instantiate a subclass object, this object inherits the instance variables of the superclass, but the subclass object cannot directly access the private instance variables of the superclass. The same is true for the methods of a subclass. That is, the methods of the subclass cannot directly access the private members of the superclass.
+
+As a consequence, the constructors of the subclass can and should (directly) initialize only the instance variables of the subclass. Thus, when a subclass object is instantiated, to initialize the (private and other) instance variables—both its own and its ancestor class(es)—the subclass object must also automatically execute one of the constructors of the superclass. A call to a constructor of the superclass is specified in the definition of a subclass constructor by using the reserved word super. The general syntax to call a constructor of a superclasss is:
+	super(parameters);
+
+
+In the preceding section, we defined the class Rectangle and derived the class Box from it. Moreover, we illustrated how to override a method of the class Rectangle.
+
+We now discuss how to write the definitions of the constructors of the class Box. The class Rectangle has two constructors and two instance variables. The class Box has three instance variables: length, width, and height. The instance variables length and width are inherited from the class Rectangle.
+
+To write the definitions of the constructors of the class Box, we first write the definition of the default constructor of the class Box. Recall that if a class contains the default constructor and no values are specified during object instantiation, the default constructor executes and initializes the object. Because the class Rectangle contains the default constructor, when we write the definition of the default constructor of the class Box, to (explicitly) specify a call to the default constructor of the class Rectangle, we use the reserved word super with no parameters, as shown in the following code. Also, a call to the (default) constructor of the superclass must be the first statement.
+
+public Box() {
+   super();
+   height = 0;
+}
+
+Note:
+=====
+If you do not include the statement super();, then, by default, the default constructor of the superclass (if any), will be called.
+
+To specify a call to a constructor with parameters of the superclass, we use the reserved word super with the appropriate parameters. A call to the constructor of the superclass must be the first statement.
+
+Consider the following definition of the constructor with parameters of the class Box:
+
+public Box(double l, double w, double h) {
+   super(l, w);
+   height = h;
+}
+
+This definition specifies the constructor of Rectangle with two parameters. When this constructor of Box executes, it triggers the execution of the constructor with two parameters of type double of the class Rectangle. 
+
+Note:
+=====
+Invoking a superclass constructor’s name in a subclass will result in a syntax error. Also, because a call to a constructor of the superclass must be the first statement, within the definition of a constructor of a subclass only one constructor of the superclass can be invoked.
+
+
+Demo: Create class Rectangle and class Box
+=====
+
+
+Consider the following statements:
+Rectangle myRectangle = new Rectangle(5, 3); //Line 1
+Box myBox = new Box(6, 5, 4); //Line 2
+
+The statement in Line 1 creates the Rectangle object myRectangle. Thus, the object myRectangle has two instance variables: length and width. The statement in Line 2 creates the Box object myBox. Thus, the object myBox has three instance variables: length, width, and height.
+
+Consider the following statements:
+
+System.out.println(myRectangle); //Line 3
+System.out.println(myBox); //Line 4
+
+In the statement in Line 3, the method toString of the class Rectangle is executed; in the statement in Line 4, the method toString associated with the class Box is executed. Recall that if a subclass overrides a method of the superclass, the redefinition applies only to the objects of the subclass. 
+
+Thus, the output of the statement in Line 3 is:
+	Length = 5.0; Width = 3.0
+
+The output of the statement in Line 4 is:
+	Length = 6.0; Width = 5.0; Height = 4.0
+
+A call to a constructor of a superclass is specified in the definition of a constructor of the subclass. When a subclass constructor executes, first a constructor of the superclass executes to initialize the data members inherited from the superclass and then the constructor of the subclass executes to initialize the data members declared by the subclass. So first the constructor of the class Rectangle executes to initialize the instance variables length and width and then the constructor of the class Box executes to initialize the instance variable height.
+
+
+EXAMPLE 3
+==========
+Suppose that you want to define a class to group the attributes of an employee. There are full-time employees and part-time employees. Part-time employees are paid based on the number of hours worked and an hourly rate. Suppose that you want to define a class to keep track of a part-time employee’s information, such as the name, pay rate, and hours worked. 
+
+You can then print the employee’s name, together with his or her wages. Recall that the class Person stores the first name and the last name together with the necessary operations on name. Because every employee is a person, we can define a class PartTimeEmployee derived from the class Person. You can also override the method toString of the class Person to print the appropriate information.
+
+
+Protected Members of a Class
+=============================
+The private members of a class are private to the class and cannot be directly accessed outside the class. Only methods of that class can access the private members directly. As discussed previously, the subclass cannot access the private members of the superclass directly. However, sometimes it may be necessary for a subclass to access a private member of a superclass. If you make a private member public, then anyone can access that member. 
+Recall that the members of a class are classified into three categories: public, private, and protected. So, if a member of a superclass needs to be (directly) accessed in a subclass and yet still prevent its direct access outside the class, such as in a user program, you must declare that member using the modifier protected. 
+
+Thus, the accessibility of a protected member of a class falls between public and private. A subclass can directly access the protected member of a superclass.
+
+To summarize, if a member of a superclass needs to be accessed directly (only) by a subclass, that member is declared using the modifier protected.
+
+
+EXAMPLE 4
+===========
+Consider the following definitions of the classes BClass and DClass. 
+
+The definition of the class BClass contains the protected instance variable bCh of type char, and the private instance variable bX of type double. It also contains an overloaded method setData; one version of setData is used to set both the instance variables, and the other version is used to set only the private instance variable. 
+
+The class BClass also has a constructor with default parameters. 
+Next, we derive a class DClass from the class BClass. The class DClass contains a private instance variable dA of type int. It also contains a method setData, with three parameters, and the method toString.
+
+Let’s now write the definition of the method setData of the class DClass. Because bCh is a protected instance variable of the class BClass, it can be directly accessed in the definition of the method setData. However, because bX is a private instance variable of the class BClass, the method setData of the class DClass cannot directly access bX. Thus, the method setData of the class DClass must set bX by using the method setData of the class BClass. The definition of the method setData of the class DClass can be written as follows:
+public void setData(char ch, double v, int a) {
+   super.setData(v);
+   bCh = ch; //initialize bCh using the assignment
+   //statement
+   dA = a;
+}
+
+
+
+Protected Access vs Package Access
+===================================
+A package is a collection of classes. 
+Typically a member of a class is declared with the modifier public, private, or protected to give appropriate access to that member. For example, if a
+member of a class is declared private, then it cannot be directly accessed outside of the class, and if a member is declared protected, it can be directly accessed in the class as well as in any subclass. You can also declare a member without any of these modifiers. If a class member is declared without any of the modifiers public, private, or protected, then the Java system gives to that member the default package access. That is, that member can be directly accessed in any class contained in that package. So there is a subtle difference between package access and protected accesses of a member. If a member of a class has a package access, that member can be directly accessed in any class contained in that package, but not in any class that is not contained in that package even if a subclass is derived from the class containing that member and the subclass is not contained in that package. On the other hand if a member of a class is protected, that member can be directly accessed in any subclass even if the subclass is contained in a different package.
+
+
+Consider the following class definition:
+public class Rectangle {
+   double length;
+   double width;
+   public Rectangle() {
+	length = 0;
+	width = 0;
+   }
+
+   double area() {
+	return length * width;
+   }
+	.
+	.
+	.
+}
+
+In this class definition, the data members length and width and the method area have package access.
+
+class Object
+==============
+We defined the class Clock and later included the method toString to return the time as a string. When we included the method toString, we noted that every Java class (built-in or user-defined) is automatically provided the method toString. If a user-defined class does not provide its own definition of the method toString, then the default definition of the method toString is invoked. The methods print and println use the method toString to determine what to print. The default definition of the method toString returns the class name followed by the hash code of the object. You might ask, where is the method toString defined? 
+
+The method toString comes from the Java class Object, and it is a public member of this class. In Java, if you define a class and do not use the reserved word extends to derive it from an existing class, then the class you define is automatically considered to be derived from the class Object. 
+
+Therefore, the class Object directly or indirectly becomes the superclass of every class in Java. From this, it follows that the definition of the class Clock (previously created):
+
+public class Clock {
+   //Declare instance variables as given in previous lab
+   //Definition of instance methods as given in previous lab
+   //...
+}
+
+
+is, in fact, equivalent to the following:
+
+public class Clock extends Object {
+    //Declare instance variables as given in previous lab
+    //Definition of instance methods as given in previous lab
+    //...
+}
+
+
+Using the mechanism of inheritance, every public member of the class Object can be overridden and/or invoked by every object of any class type. 
+
+Constructors and Methods of the class Object
+=============================================
+Because every Java class is directly or indirectly derived from the class Object, it follows that the method toString becomes a public member of every Java class. Therefore, if a class does not override this method, whenever this method is invoked, the method’s default definition executes. As indicated previously, the default definition returns the class name followed by the hash code of the object as a string. Usually, every Java class overrides the method toString. The class String overrides it so that the string stored in the object is returned. 
+
+The class Clock overrides it so that the string containing the time in the form hh:mm:ss is returned.
+Similarly, the class Person also overrides it.
+
+The method equals is also a very useful method of the class Object. This method’s definition, as given in the class Object, determines whether the object invoking this method and the object passed as a parameter refer to the same memory space, that is, whether they point to data in the same memory space. The method equals determines whether the two objects are aliases. As in the case of the method toString, to implement its own needs,
+every user-defined class also usually overrides the method equals. 
+
+For example, in the class Clock, the method equals was overridden to determine whether the instance variables (hr, min, and sec) of two Clock objects contained the same value. 
+
+As usual, the default constructor is used to initialize an object. The method clone makes a copy of the object and returns a reference to the copy. However, the method clone makes only a memberwise (that is, field-by-field) copy of the object. In other words, the method clone provides a shallow copy of the data.
+
+
+
+Java Stream Classes
+====================
+In previous labs, we used the class Scanner for inputting data from the standard input device. We also described in detail how to perform input/output (I/O) using Java stream classes, such as FileReader and PrintWriter. In Java, stream classes are implemented using the inheritance mechanism (see Firgure 7).
+
+From Figure 7, it follows that the classes Scanner, Reader, and Writer are derived from the class Object. The class InputStreamReader is derived from the class Reader, and the class FileReader is derived from the class InputStreamReader. Similarly, the class PrintWriter is derived from the class Writer.
+
+
+
+Demo
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Java hash code
+================
+public class Object
+
+Class Object is the root of the class hierarchy. Every class has Object as a superclass. All objects, including arrays, implement the methods of this class.
+
+One of the class Object methods is hashCode()
+int hashCode() - Returns a hash code value for the object. 
+
+The general contract of hashCode is: 
+•Whenever it is invoked on the same object more than once during an execution of a Java application, the hashCode method must consistently return the same integer, provided no information used in equals comparisons on the object is modified. This integer need not remain consistent from one execution of an application to another execution of the same application. 
+•If two objects are equal according to the equals(Object) method, then calling the hashCode method on each of the two objects must produce the same integer result. 
+•It is not required that if two objects are unequal according to the equals(java.lang.Object) method, then calling the hashCode method on each of the two objects must produce distinct integer results. However, the programmer should be aware that producing distinct integer results for unequal objects may improve the performance of hash tables. 
+
+
+
+An object’s hash code allows algorithms and data structures to put objects into compartments, just like letter types in a printer’s type case. The printer puts all “A” types into the compartment for “A”, and he looks for an “A” only in this one compartment. This simple system lets him find types much faster than searching in an unsorted drawer. That’s also the idea of hash-based collections, such as HashMap and HashSet.
+
+In order to make your class work properly with hash-based collections and other algorithms that rely on hash codes, all hashCode implementations must stick to a simple contract.
+
+
+Java static keyword
+=====================
+The static keyword in java is used for memory management mainly. We can apply java static keyword with variables, methods, 
+blocks and nested class. The static keyword belongs to the class than instance of the class.
+
+The static can be:
+1.variable (also known as class variable)
+2.method (also known as class method)
+3.block
+4.nested class
+
+
+for more information, see http://www.javatpoint.com/static-keyword-in-java

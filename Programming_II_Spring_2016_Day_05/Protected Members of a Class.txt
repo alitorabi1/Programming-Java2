@@ -1,0 +1,26 @@
+Protected Members of a Class
+=============================
+The private members of a class are private to the class and cannot be directly accessed outside the class. Only methods of that class can access the private members directly. As discussed previously, the subclass cannot access the private members of the superclass directly. However, sometimes it may be necessary for a subclass to access a private member of a superclass. If you make a private member public, then anyone can access that member. 
+
+Recall that the members of a class are classified into three categories: public, private, and protected. So, if a member of a superclass needs to be (directly) accessed in a subclass and yet still prevent its direct access outside the class, such as in a user program, you must declare that member using the modifier protected. 
+
+Thus, the accessibility of a protected member of a class falls between public and private. A subclass can directly access the protected member of a superclass.
+
+To summarize, if a member of a superclass needs to be accessed directly (only) by a subclass, that member is declared using the modifier protected.
+
+
+Protected Access vs Package Access
+====================================
+As noted in Chapter 2, a package is a collection of classes. Appendix D explains how to create a package. Typically a member of a class is declared with the modifier public, private, or protected to give appropriate access to that member. 
+
+For example, if a member of a class is declared private, then it cannot be directly accessed outside of the class, and if a member is declared protected, it can be directly accessed in the class as well as in any subclass. 
+
+You can also declare a member without any of these modifiers. If a class member is declared without any of the modifiers public, private, or protected, then the Java system gives to that member the default package access. That is, that member can be directly accessed in any class contained in that package. So there is a subtle difference between package access and protected accesses of a member. 
+
+If a member of a class has a package access, that member can be directly accessed in any class contained in that package, but not in any class that is not contained in that package even if a subclass is derived from the class containing that member and the subclass is not contained in that package. On the other hand if a member of a class is protected, that member can be directly accessed in any subclass even if the subclass is contained in a different package.
+
+
+References:
+=============
+Controlling Access to Members of a Class
+http://docs.oracle.com/javase/tutorial/java/javaOO/accesscontrol.html

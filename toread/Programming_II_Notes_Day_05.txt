@@ -1,0 +1,730 @@
+﻿USER-DEFINED CLASSES AND ADTS
+==============================
+Classes and Objects
+====================
+Recall that the first step in problem-solving using object-oriented design (OOD) is to identify the components called classes 
+
+and objects. An object of a class has both data and operations that can be performed on that data. 
+
+The mechanism in Java that allows you to combine data and operations on the data in a single unit is called a class. 
+(Combining data and operations on the data is called encapsulation—the first principle of OOD.) 
+
+
+Objects and Reference Variables
+===============================
+Three terms that you will encounter repeatedly throughout A java program are variables, reference variables, and objects. 
+
+You learned about the primitive data types, such as int, double, and char.
+You also worked with strings. We used String variables to manipulate or process strings.
+
+Consider the following statement:
+int x; //Line 1 
+
+This statement declares x to be an int variable. Now consider the statement:
+
+String str; //Line 2
+
+This statement declares str to be a variable of type String.
+
+The statement in Line 1 allocates memory space to store an int value and calls this memory space x. 
+The variable x can store an int value in its memory space. For example,  the following statement stores 45 in x:
+x = 45; //Line 3
+
+
+Next, let us see what happens with the statement in Line 2. This statement allocates memory space for the variable str. 
+However, unlike the variable x, the variable str cannot directly store data in its memory space. The variable str stores the memory 
+location, that is, the address of the memory space where the actual data is stored. For example, the effect of the statement:
+str = "Java Programming"; //Line 4
+
+For the String variable str, the statement in Line 4 causes the system to allocate memory space starting at, say, location 2500, 
+stores the string (literal) "Java Programming" in this memory space, and then stores the address 2500 in the memory space of str.
+
+The next obvious question is: How does this happen? In reality, for the most part, the effect of the statement in Line 4 is 
+the same as the effect of the following statement: str = new String("Java Programming");
+
+In Java, new is an operator. It causes the system to allocate memory space of a specific type, store specific data in that memory 
+space, and return the address of the memory space. Therefore, the statement in Line 4 causes the system to allocate memory 
+space large enough to store the string (literal) "Java Programming", stores this string in that memory space, and returns the 
+address of the allocated memory space. The assignment operator stores the address of that memory space into the variable str.
+
+As you already know, String is not a primitive data type. In Java terminology, the data type String is defined by the class String. 
+
+In Java, variables such as str are called reference variables. More formally, reference variables are variables that store the address 
+of a memory space. In Java, any variable declared using a class (such as the variable str) is a reference variable. Because str is a 
+reference variable declared using the class String, we say that str is a reference variable of the String type.
+
+The memory space 2500, where the string (literal) "Java Programming" is stored, is called a String object. 
+We call String objects instances of the class String.
+
+Because str is a reference variable of the String type, str can store the address of any String object. 
+In other words, str can point to or refer to any String object. Moreover, it follows that we are dealing with 
+two different things—the reference variable str and the String object that str points to. We call the String object 
+that str points to, which is at memory space 2500, the object str.
+
+
+class String
+=============
+Consider the following statements:
+String name; //Line 1
+name = "Lisa Johnson"; //Line 2
+
+The statement in Line 1 declares name to be a String variable. The statement in Line 2 creates the string "Lisa Johnson" and assigns it to name. 
+
+In the statement in Line 2, we usually say that the String object, or the string "Lisa Johnson", is assigned to the String variable or the variable name. In reality, as explained before, a String object with the value "Lisa Johnson" is instantiated (if it has not already been created) and the address of the object is stored in name. Whenever we use the term "the string name", we are referring to the object containing the string "Lisa Johnson". Similarly, when we use the terms (reference) variable name or String variable name, we simply mean name, whose value is an address.
+
+
+Each method associated with the class String implements a specific operation and has a specific name. For example, the method for determining the length of a string is named length, and the method for extracting a string from within another string is named substring.
+
+In general, to use a method you must know the name of the class containing the method and the name of the package containing the class; you must import the class; and you must know the method name, its parameters, and what the method does. 
+
+However, because the Java system automatically makes the class String available, you do not need to import this class. Therefore, in order to use a String method, you need to know its name, parameters, and what the method does. 
+
+The general expression to use a String method on a String variable is:
+
+	StringVariable.StringMethodName(parameters)
+
+In this statement, the variable name and the method name are separated with the dot (.). 
+
+For example, if name is a String variable, and name = "Lisa Johnson", then the value of the expression
+name.length()
+is 12.
+
+Now that you know how to store and manipulate data in computer memory and how to construct your own methods, you are ready to learn how classes and objects are constructed.
+
+Using the class String, you can create various String objects, each storing a different string, and using the methods of the class String, each object can manipulate its string. The class String allows us to group data, which are strings, and operations on that data in a convenient way. We can use the class String in any Java program that requires the manipulation of strings, without re-creating it for a specific program. In fact, the Java programming language provides a wealth of predefined classes that can be effectively used in any program. 
+
+However, Java does not provide all the classes that we will ever need as it does not know the specific needs of a programmer. Therefore, we must learn how to create our own classes.
+
+
+In general, to design a class you must know what data you need to manipulate and what operations you need to manipulate the data. 
+
+◘ For example, suppose that you want to design the class Circle that implements the basic properties of a circle. 
+
+• Now every circle has a radius, which can be a floating-point value. Therefore, when you create an object of the class Circle, then you must store the radius of the circle into that object. 
+
+• Next, the two basic operations that are performed on a circle are to find the area and circumference of the circle. Thus, the class Circle must provide these two operations. 
+
+This class needs to provide a few other operations to effectively use this class in a program. In skeleton form, the definition of the class Circle is as follows:
+
+public class Circle
+{
+   private double radius;
+   public double area()
+{
+
+//code to determine the area of the circle
+}
+   public double perimeter()
+{
+
+//code to determine the perimeter of the circle
+}
+   //Additional methods as needed
+   ...
+}
+
+
+Considering the definition of the class Circle, it is apparent that to design your own class you need to be familiar with several things. For example, in the definition of the class Circle, the variable radius is declared with the keyword private and the methods area and perimeter are declared with the keyword public. Also, notice that the methods area and perimeter have no parameters. 
+
+A class is a collection of a specific number of components. The components of a class are called the members of the class.
+
+The general syntax for defining a class is:
+modifier(s) class ClassIdentifier modifier(s)
+{
+	classMembers
+}
+
+where modifier(s) are used to alter the behavior of the class and, usually, classMembers consist of named constants, variable declarations, and/or methods, but can even include other classes. That is, usually a member of a class can be a variable (to store data) or a method or an inner class. 
+Some of the modifiers that we have encountered are public, private, and static.
+• If a member of a class is a named constant, you declare it just like any other named constant.
+• If a member of a class is a variable, you declare it just like any other variable.
+• If a member of a class is a method, you define it just like any other method.
+• If a member of a class is a method, it can (directly) access any member of the class—both data members and methods. Therefore, when you write
+the definition of a method, you can directly access any data member of the class (without passing it as a parameter).
+• Later, we’ll describe class members, which themselves are classes, called inner classes.
+
+
+Java class only defines a data type and it announces the declaration of a class. 
+In Java, the data members of a class are also called fields.
+
+The members of a class are classified into four categories. The three typically used categories are private, public, and protected. 
+
+The following are some facts about private and public members of a class:
+• If a member of a class is private, you cannot access it outside the class.
+• If a member of a class is public, you can access it outside the class.
+
+
+Suppose that we want to define the class Clock to represent the time of day in a program. Further suppose that the time is represented as a set of three integers: one to represent the hours, one to represent the minutes, and one to represent the seconds. We also want to perform the following operations on the time:
+1. Set the time.
+2. Return the hours.
+3. Return the minutes.
+4. Return the seconds.
+5. Print the time.
+6. Increment the time by one hour.
+7. Increment the time by one minute.
+8. Increment the time by one second.
+9. Compare the two times for equality.
+10. Copy the time.
+11. Return a copy of the time.
+
+
+To implement these 11 operations, we write algorithms, which we implement as methods, 11 methods to implement 11 operations. So far, the class Clock has 14 members: 3 data members and 11 methods. Suppose that the 3 data members are hr, min, and sec, each of type int. 
+
+Some members of the class Clock will be private, others will be public. Deciding which members to make private and which 
+to make public depends on the nature of each member. The general rule is that any member that needs to be accessed from 
+outside the class is declared public; any member that should not be accessed directly by the user should be declared private. 
+For example, the user should be able to set the time and print the time. Therefore, the methods that set the time and print 
+the time should be declared public.
+
+Similarly, the method to increment the time and compare the times for equality should be declared public. On the other hand, 
+users should not control the direct manipulation of the data members hr, min, and sec, so we will declare them private. 
+Note that if the user has direct access to the data members, methods such as setTime are not needed. 
+(However, in general, the user should never be provided with direct access to the variables.)
+
+
+The data members for the class Clock are:
+private int hr; //store the hours
+private int min; //store the minutes
+private int sec; //store the seconds
+
+The (non-static) data members—variables declared without using the modifier (reserved word) static—of a class are 
+called instance variables. Therefore, the variables hr, min, and sec are the instance variables of the class Clock.
+Suppose that the 11 methods to implement the 11 operations are as follows (we also specify the headings of the methods):
+1. setTime sets the time to the time specified by the user. The method heading is:
+	public void setTime(int hours, int minutes, int seconds)
+
+2. getHours returns the hours. The method heading is:
+	public int getHours()
+
+3. getMinutes returns the minutes. The method heading is:
+	public int getMinutes()
+
+4. getSeconds returns the seconds. The method heading is:
+	public int getSeconds()
+
+5. printTime prints the time in the form hh:mm:ss. The method heading is:
+	public void printTime()
+
+6. incrementHours increments the time by one hour. The method heading	is:
+	public void incrementHours()
+
+7. incrementMinutes increments the time by one minute. The method heading is:
+	public void incrementMinutes()
+
+8. incrementSeconds increments the time by one second. The method heading is:
+	public void incrementSeconds()
+
+9. equals compares two times to determine whether they are equal. The method heading is:
+	public boolean equals(Clock otherClock)
+
+10. makeCopy copies the time of one Clock object into another Clock object. The method heading is:
+	public void makeCopy(Clock otherClock)
+
+11. getCopy returns a copy of the time. A copy of the object’s time is created and a reference to the copy is returned. The method heading is:
+	public Clock getCopy()
+
+
+
+The objective of the method setTime is to set the values of the instance variables. In other words, it changes the values of the 
+instance variables. Such methods are called mutator methods. On the other hand, the method getHours only accesses the value 
+of an instance variable; that is, it does not change the value of the instance variable. Such methods are called accessor methods.
+
+The (non-static) methods of a class are called the instance methods of the class.
+
+
+Constructors
+==============
+In addition to the methods necessary to implement operations, every class can have special types of methods called constructors. 
+A constructor has the same name as the class, and it executes automatically when an object of that class is created. 
+Constructors are used to guarantee that the instance variables of the class are initialized. 
+
+There are two types of constructors: those with parameters and those without parameters.
+
+The constructor without parameters is called the default constructor. 
+
+Constructors have the following properties:
+• The name of a constructor is the same as the name of the class.
+• A constructor, even though it is a method, has no return type. That is, it is neither a value-returning method nor a void method.
+• A class can have more than one constructor. However, all constructors of a class have the same name. 
+	That is, the constructors of a class can be overloaded.
+• If a class has more than one constructor, the constructors must have different signatures.
+• Constructors execute automatically when class objects are instantiated.
+	Because they have no types, they cannot be called like other methods.
+• If there are multiple constructors, the constructor that executes depends on the type of values passed to the class object 
+	when the class object is instantiated.
+
+For the class Clock, we will include two constructors: the default constructor and a constructor with parameters. The default constructor initializes the instance variables used to store the hours, minutes, and seconds, each to 0. Similarly, the constructor with parameters initializes the instance variables to the values specified by the user. We will illustrate shortly how constructors are invoked.
+
+The heading of the default constructor is:
+	public Clock()
+
+The heading of the constructor with parameters is:
+	public Clock(int hours, int minutes, int seconds)
+
+The definition of the class Clock has 16 members: 11 methods to implement the 11 operations, 2 constructors, and 3 instance variables to store the hours, minutes, and seconds.
+The top box in the UML diagram contains the name of the class. 
+The middle box contains the data members and their data types. 
+The last box contains the method names, parameter list, and return types. 
+The + (plus) sign in front of a member indicates that it is a public member; 
+the – (minus) sign indicates that it is a private member. 
+The # symbol before a member name indicates that it is a protected member.
+
+
+
+Accessing Class Members
+=======================
+Once an object of a class is created, the object can access the members of the class. The general syntax for an object to access a data member or a method is:
+	referenceVariableName.memberName
+
+The class members that the class object can access depend on where the object is created.
+
+• If the object is created in the definition of a method of the class, then the object can access both the public and private members. We will
+elaborate on this when we write the definitions of the methods equals, makeCopy, and getCopy of the class Clock.
+• If the object is created elsewhere (for example, in a user’s program), then the object can access only the public members of the class.
+
+Recall that in Java, the dot . (period) is called the member access operator.
+
+
+EXAMPLE 
+=======
+Suppose that the objects myClock and yourClock have been created as before. Consider the following statements:
+myClock.setTime(5, 2, 30);
+
+myClock.printTime();
+
+yourClock.setTime(x, y, z); 
+//Assume x, y, and z are variables of type int that have been initialized.
+
+if (myClock.equals(yourClock)) { ... }
+
+
+These statements are legal; that is, they are syntactically correct. Note the following:
+• In the first statement, myClock.setTime(5, 2, 30);, the method setTime is executed. The values 5, 2, and 30 are passed as parameters to the method setTime, and the method uses these values to set the values of hr, min, and sec of the object myClock to 5, 2, and 30, respectively.
+
+• Similarly, the second statement executes the method printTime and outputs the values of hr, min, and sec of the object myClock.
+
+• In the third statement, the values of the variables x, y, and z are used to set the values of hr, min, and sec of the object yourClock.
+
+• In the fourth statement, the method equals executes and compares the instance variables of the object myClock with the corresponding instance variables of the object yourClock. Because in this statement the method equals is invoked by the variable myClock, it has direct access to the instance variables of the object myClock. So it needs one more object to compare, which, in this case, is the object yourClock. This explains why the method equals has only one parameter.
+
+
+The objects myClock and yourClock can access only public members of the class. 
+The following statements are illegal because hr and min are private members of the class Clock and, therefore, 
+cannot be accessed by myClock and yourClock:
+myClock.hr = 10; //illegal
+myClock.min = yourClock.min; //illegal
+
+
+Built-in Operations on Classes
+================================
+Most of Java’s built-in operations do not apply to classes. You cannot perform arithmetic operations on class objects. 
+For example, you cannot use the operator + to add the values of two Clock objects. Also, you cannot use relational operators 
+to compare two class objects in any meaningful way.
+
+The built-in operation that is valid for classes is the dot operator (.). A reference variable uses the dot operator to access public members; classes can use the dot operator to access public static members
+
+Assignment Operator and Classes: A Precaution
+===================
+Suppose that you have the objects myClock and yourClock.
+
+The statement: 
+myClock = yourClock;
+
+copies the value of the reference variable yourClock into the reference variable myClock. After this statement executes, both 
+yourClock and myClock refer to the same object. 
+
+This is called the shallow copying of data. 
+In shallow copying, two or more reference variables of the same type point to the same object; that is, two or more reference 
+variables become aliases. Note that the object originally referred to by myClock becomes inaccessible.
+
+To copy the instance variables of the object yourClock into the corresponding instance variables of the object myClock, 
+you need to use the method makeCopy. This is accomplished by the following statement:
+	myClock.makeCopy(yourClock);
+
+After this statement executes:
+1. The value of yourClock.hr is copied into myClock.hr.
+2. The value of yourClock.min is copied into myClock.min.
+3. The value of yourClock.sec is copied into myClock.sec.
+
+In other words, the values of the three instance variables of the object yourClock are copied into the corresponding instance variables of the object myClock.
+
+This is called the deep copying of data. In deep copying, each reference variable refers to its own object, not the same object.
+
+Another way to avoid the shallow copying of data is to have the object being copied create a copy of itself, and then return a 
+reference to the copy. This is accomplished by the method getCopy. Consider the following statement:
+	myClock = yourClock.getCopy();
+
+In this statement, the expression yourClock.getCopy() makes a copy of the object yourClock and returns the address, 
+that is, the reference, of the copy. The assignment statement stores this address into myClock.
+
+
+Class Scope
+============
+A reference variable follows the same scope rules as other variables. A member of a class is local to the class. 
+You access a public class member outside the class through the reference variable name or the class name 
+(for static members) and the member access operator (.).
+
+Methods and Classes
+===================
+Reference variables can be passed as parameters to methods and returned as method values. When a reference variable is passed as a parameter to a method, both the formal and actual parameters point to the same object.
+
+Definitions of the Constructors and Methods of the class Clock
+===============================
+We now give the definitions of the methods of the class Clock, then we will write the complete definition of this class. First, note the following:
+1. The class Clock has 11 methods: setTime, getHours, getMinutes, getSeconds, printTime, incrementHours, incrementMinutes, incrementSeconds, equals, makeCopy, and getCopy. It has two constructors and three instance variables: hr, min, and sec. 
+
+2. The three instance variables—hr, min, and sec—are private to the class and cannot be accessed directly outside the class.
+
+3. The 11 methods—setTime, getHours, getMinutes, getSeconds, printTime, incrementHours, incrementMinutes, incrementSeconds, equals, makeCopy, and getCopy—can directly access the instance variables (hr, min, and sec). In other words, we do not pass instance variables or data members as parameters to these methods. Similarly, constructors directly access the instance variables.
+
+Let’s first write the definition of the method setTime. The method setTime has three parameters of type int. This method sets the instance variables to the values specified by the user, which are passed as parameters to this function. The definition of the method setTime follows:
+
+public void setTime(int hours, int minutes, int seconds) {
+	if (0 <= hours && hours < 24) {
+		hr = hours;
+	}
+	else {
+		hr = 0;
+	}
+	if (0 <= minutes && minutes < 60) {
+		min = minutes;
+	}
+	else {
+		min = 0;
+	}
+	if (0 <= seconds && seconds < 60) {
+		sec = seconds;
+	} 
+	else {
+		sec = 0;
+	}
+}
+
+
+The method setTime is a void method and has three parameters. Therefore:
+• A call to this method is a stand-alone statement.
+• We must use three parameters in a call to this method.
+
+Furthermore, recall that because setTime is a member of the class Clock, it can directly access the instance variables hr, min, and sec, as shown in the definition of setTime.
+
+Demo
+====
+Create the class Clock
+
+
+
+Copy Constructor
+=================
+Suppose that you have the following statement:
+	Clock myClock = new Clock(8, 45, 22); //Line 1
+
+You can use the object myClock to declare and instantiate another Clock object. 
+
+Consider the following statement:
+Clock aClock = new Clock(myClock); //Line 2
+
+This statement declares aClock to be a reference variable of type Clock, instantiates the object aClock, and initializes the instance variables of the object aClock using the values of the corresponding instance variables of the object myClock. However, to successfully execute the statement in Line 2, you need to include a special constructor, called a copy constructor, in the class Clock. The copy constructor executes when an object is instantiated and initialized using an existing object.
+
+The syntax of the heading of the copy constructor is:
+	public ClassName(ClassName otherObject)
+
+For example, the heading of the copy constructor for the class Clock is:
+public Clock(Clock otherClock)
+
+The definition of the copy constructor for the class Clock is:
+
+public Clock(Clock otherClock) {
+	hr = otherClock.hr;
+	min = otherClock.min;
+	sec = otherClock.sec;
+}
+
+If you include this definition of the copy constructor in the class Clock, then the statement in Line 2 declares aClock to be a reference variable of type Clock, instantiates the object aClock, and initializes the instance variables of the object aClock using the values of the instance variables of the object myClock.
+
+
+Static Members of a Class
+==========================
+We used several methods of the classes Math such as max, min, and pow; however, we did not need to create any objects to use these methods. We simply used the import statement:
+	import static java.lang.Math.*;
+
+and then called the method with an appropriate actual parameter list. For example, to use the method pow of the class Math, we used expressions such as:
+pow(5, 3)
+
+If you are using versions of Java lower than Java 5.0 or you do not include the preceding import statement, then you call the method pow as follows:
+Math.pow(5, 3)
+
+That is, we can simply call the method using the name of the class and the dot operator.
+
+For example, the heading of the method pow of the class Math is:
+	public static double pow(double base, double exponent)
+
+The modifier static in the heading specifies that the method can be invoked by using the name of the class. Similarly, if a data member of a class is declared using the modifier static, it can be accessed by using the name of the class.
+
+
+static Variables (Data Members) of a Class
+===========================================
+Suppose that you have a class, say, MyClass, with data members (static and nonstatic). When you instantiate the objects of type MyClass, only the non-static data members of the class MyClass become the data members of each object. What about the memory for the static data members of MyClass? For each static data member of the class, Java allocates memory space only once. All MyClass objects refer to the same memory space. In fact, static data members of a class exist even when no object of the class type is instantiated. Moreover, static variables are initialized to their default values. You can access the public static data members outside the class.
+
+
+Finalizers
+==============
+Like constructors, finalizers are also special types of methods. However, a finalizer is a void method. A class can have only one finalizer, and the finalizer cannot have any parameters. The name of the finalizer is finalize. The method finalize automatically executes when the class object goes out of scope. A typical use of a finalizer is to free up the memory allocated by the object of a class.
+
+
+Accessor and Mutator Methods
+=============================
+Let us look at the methods of the class Clock. The method setTime sets the values of the data members to the values specified by the user. In other words, it alters or modifies the values of the instance variables. Similarly, the methods incrementHours, incrementMinutes, and incrementSeconds also modify the instance variables. However, methods such as getHours, getMinutes, getSeconds, printTime, and equals only access the values of the data members; they do not modify the data members. We can, therefore, divide the methods of the class Clock into two categories: methods that modify the data members, and methods that access, but do not modify, the data members.
+
+This is typically true for any class. That is, almost every class has methods that only access and do not modify the data members, called accessor methods, and methods that modify the data members, called mutator methods.
+
+Accessor Method: A method of a class that only accesses (that is, does not modify) the value(s) of the data member(s).
+
+Mutator Method: A method of a class that modifies the value(s) of one or more data member(s).
+
+
+Typically, the instance variables of a class are declared private so that the user of a class does not have direct access to them. In general, every class has a set of accessor methods to work with the instance variables. If the data members need to be modified, then the class also has a set of mutator methods. Conventionally, mutator methods begin with the word set and accessor methods begin with the word get. You might wonder why we need both mutator and accessor methods when we can simply make the instance variables public. However, look closely, for example, at the mutator method setTime of the class Clock. Before setting the time, it validates the time. On the other hand, if the instance variables are all public, then the user of the class can put any values in the instance variables. Similarly, the accessor methods only return the value(s) of an instance variable(s); that is, they do not modify the values. A well-designed class uses private instance variables, accessor methods, and (if needed) mutator methods to implement the OOD principle of encapsulation.
+
+
+Debugging, Designing and Documenting a Class
+===========================================
+Before moving to the design phase, a problem must be thoroughly understood so that the focus is on solving the problem. We must learn to solve the problem completely on a piece of paper before writing a single line of code. Furthermore, as noted in earlier notes, a Java program is a collection of classes and a class is a collection of variables, methods, and sometimes other classes. So in Java, a class is a fundamental entity. Therefore, once a class is designed, it must be properly documented. Typically in a large project, the designer of a class and the programmer need not be the same person. Even if the designer and the programmer are the same person, it is possible that after some time the person currently working on the problem may move to another project or even to a different job. So the person replacing the person leaving must know exactly what the designer intended to do with the class. Therefore, it is very important to document the class so that it can be correctly programmed in Java, and if needed, in the future it can be modified.
+
+
+We spent a considerable amount of time designing the class Clock. In order to design this class, first we identified 
+the operations and determined that each operation must be implemented using a method. 
+We then identified the data members and their types. We also identified which member should be public and which should be private. Following the syntax of a method heading, we specified the heading of each method and briefly explained what the method should do. Some methods can be implemented using a single line of code, while others may require a complicated algorithm. In either case, an algorithm must be designed and documented to implement a method. Typically, the algorithm to implement a method can be written as a pseudocode, which is a mixture of English and the Java language. The means of describing the algorithm is not as important as the clarity of the algorithm. The algorithm should be sufficiently clear so that a programmer can code the algorithm in Java without having to make any further decisions about how to solve the problem.
+
+Reference this (Optional)
+==========================
+In the previous section, we defined the class Clock. Suppose that myClock is a reference variable of type Clock. 
+Suppose that the object myClock has been created. Consider the following statements:
+	myClock.setTime(5, 6, 59); //Line 1
+	myClock.incrementSeconds(); //Line 2
+
+The statement in Line 1 uses the method setTime to set the instance variables hr, min, and sec of the object myClock 
+to 5, 6, and 59, respectively. The statement in Line 2 uses the method incrementSeconds to increment the time of the object 
+myClock by one second. The statement in Line 2 also results in a call to the method incrementMinutes because, after incrementing 
+the value of sec by 1, the value of sec becomes 60, which then is reset to 0, and the method incrementMinutes is invoked. 
+
+How do you think Java makes sure that the statement in Line 1 sets the instance variables of the object myClock and not of 
+another Clock object? How does Java make sure that when the method incrementSeconds calls the method incrementMinutes, 
+the method incrementMinutes increments the value of the instance variable min of the object myClock and not of another 
+Clock object?
+
+The answer is that every object has access to a reference of itself. The name of this reference is THIS (lower case this). 
+In Java, this is a reserved word. 
+
+Java implicitly uses the reference this to refer to both the instance variables and the methods of a class. 
+Recall that the definition of the method setTime is:
+
+public void setTime(int hours, int minutes, int seconds) {
+	if (0 <= hours && hours < 24) {
+		hr = hours;
+	}
+	else {
+		hr = 0;
+	}
+	...
+
+In the method setTime, the statement:
+hr = hours;
+is, in fact, equivalent to the statement:
+this.hr = hours;
+
+
+In this statement, the reference this is used explicitly. You can explicitly use the reference this and write the equivalent definition 
+of the method setTime as follows:
+
+public void setTime(int hr, int min, int sec) {
+	if (0 <= hr && hr < 24) {
+		this.hr = hr;
+	} 
+	else }
+		this.hr = 0;
+	}
+
+In this definition of the method setTime, the expression this.hr means the instance variable hr, not the formal parameter hr, 
+and so on. Because the code explicitly uses the reference this, the compiler can distinguish between the instance variables and 
+the formal parameters. 
+
+Similarly, explicitly using the reference this, you can write the definition of the method incrementSeconds as follows:
+public void incrementSeconds() {
+	this.sec++;
+	...
+
+
+Cascaded Method Calls (Optional)
+=================================
+In addition to explicitly referring to the instance variables and methods of an object, the reference this has another use, to 
+implement cascaded method calls. We explain this with the help of an example.
+
+For example, we designed the class Person to implement a person’s name in a program. Here, we extend the definition of the 
+class Person to individually set a person’s first name and last name, and then return a reference to the object, using this.
+
+The following code is the extended definition of the class Person. 
+(The methods setFirstName and setLastName are added to this definition of the class Person.)
+
+//Method to set the last name
+//Postcondition: lastName = last;
+// After setting the last name, a reference
+// of the object is returned.
+public Person setLastName(String last) {
+	lastName = last;
+	return this;
+}
+
+//Method to set the first name
+//Postcondition: firstName = first;
+// After setting the first name, a reference
+// of the object is returned.
+public Person setFirstName(String first) {
+	firstName = first;
+	return this;
+}
+
+
+
+Inner Classes
+===============
+The classes defined thus far are said to have file scope, that is, they are contained within a file, but not within another class. 
+In previous lab, while designing the class RectangleProgram, we defined the class CalculateButtonHandler to handle an 
+action event. The definition of the class CalculateButtonHandler is contained within the class RectangleProgram. 
+Classes that are defined within other classes are called inner classes. 
+
+An inner class can be either a complete class definition, such as the class CalculateButtonHandler, or an anonymous inner class 
+definition. Anonymous classes are classes with no name.
+
+One of the main uses of inner classes is to handle events, as we did in RectangleProgram. In this course, our main use of 
+inner classes is to handle events in a GUI program. 
+
+
+Abstract Data Types
+===================
+To help you understand an abstract data type (ADT) and how it might be used, we’ll provide an analogy. 
+The following items seem unrelated:
+• A deck of playing cards
+• A set of index cards containing contact information
+• Telephone numbers stored in your cellular phone
+
+All three of these items share the following structural properties:
+• Each one is a collection of elements.
+• There is a first element.
+• There is a second element, third element, and so on.
+• There is a last element.
+• Given an element other than the last element, there is a "next" element.
+• Given an element other than the first element, there is a "previous" element.
+• An element can be removed from the collection.
+• An element can be added to the collection.
+• A specified element can be located in the collection by systematically going through the collection.
+
+In your programs, you may want to keep a collection of various elements, such as addresses, students, employees, 
+departments, and projects. This structure commonly appears in various applications, and it is worth studying in its own right. 
+We call this organization a list, which is an example of an ADT.
+
+There is a data type called Vector (discussed later in this course) with basic operations such as: 
+• Insert an item.
+• Delete an item.
+• Find an item.
+
+You can use a Vector object to create an address book. You would not need to write a program to insert an address, delete an 
+address, or find an item in your address book. Java also allows you to create your own abstract data types through classes.
+
+An ADT is an abstraction of ooglea commonly appearing data structure, along with a set of defined operations on the data structure.
+
+Abstract data type (ADT): 
+=========================
+A data type that specifies the logical properties without concern for the implementation details.
+
+Historically, the concept of ADT in computer programming developed as a way of abstracting the common data structure 
+and the associated operations. Along the way, ADT provided information hiding. That is, ADT hides the implementation details 
+of the operations and the data from the users of the ADT. Users can use the operations of an ADT without knowing how the 
+operation is implemented.
+
+
+class Vector 
+=============
+In addition to arrays, Java provides the class Vector to implement a list. Unlike an array, the size of a Vector object can grow 
+and shrink during program execution.
+
+Therefore, you need not be concerned about the number of data elements. Before describing how a Vector object is used to 
+manage a list.
+
+Every element of a Vector object is a reference variable of type Object. In Java, Object is a predefined class, and a reference 
+variable of the Object
+type can store the address of any object. Because every element of a Vector object is a reference, to add an element to a Vector 
+object, you must first create the appropriate object and store the data into that object. You can then store the address of the 
+object holding the data into a Vector object element. Because every string in Java is considered a String object, we will illustrate 
+some of the operations on a Vector object using string data.
+
+Consider the following statement:
+Vector<String> stringList = new Vector<String>(); //Line 1
+
+This statement declares stringList to be a reference variable of the Vector type, instantiates an empty Vector object, and stores 
+the address of this object into stringList. The Vector object stringList is used to create a Vector of String objects.
+
+Next, consider the following statements:
+stringList.addElement("Spring");
+stringList.addElement("Summer");
+stringList.addElement("Fall");
+stringList.addElement("Winter");
+
+The statement:
+	System.out.println(stringList);
+
+outputs the elements of stringList in the following form:
+[Spring, Summer, Fall, Winter]
+
+The class Vector is contained in the package java.util. Therefore, to use the class Vector, your program must include either the 
+statement:
+import java.util.*;
+
+or the statement:
+
+import java.util.Vector;
+
+
+Primitive Data Types and the class Vector
+==========================================
+As described in the preceding section, every element of a Vector object is a reference. Therefore, to create a Vector of, 
+say integers, the integers must be wrapped in an object. Recall that Java provides a wrapper class corresponding to each 
+primitive data type. For example, the wrapper class corresponding to type int is Integer. 
+Therefore, an int value can be wrapped in an Integer object. Java has simplified the wrapping and unwrapping of primitive 
+type values, called the autoboxing and auto-unboxing of primitive data types. For example, suppose that x is an int variable 
+and num is an Integer object. 
+
+Consider the statements:
+num = 25;
+
+num = new Integer(25);
+
+After the execution of either of these statements, num would point to an Integer object with the value 25. 
+Recall that the expression, num = 25; is called the autoboxing of the int type.
+
+Next, we illustrate how to create a Vector of Integer objects to store int values.
+
+Suppose that you have the declaration:
+	Vector<Integer> list = new Vector<Integer>();
+
+The following statements create Integer objects with the int values 13 and 25 (if there are no other Integer objects with 
+these values), and the Integer objects are assigned to list:
+	list.addElement(13);
+	list.addElement(25);
+
+You can use other Vector operations to manipulate the objects of list. 
+
+Also, recall that the wrapper class corresponding to type char is Character, type double is Double, type float is Float, 
+and type boolean is Boolean.
+
+
+Vector Objects and the foreach Loop 
+=====================================
+Recall that a foreach loop can be used to process the elements of a collection object one at a time. Because each Vector object 
+is a collection of elements, you can use a foreach loop to process the elements of a Vector object. The syntax to use this type of 
+for loop to process the elements of a Vector object is:
+
+for (type identifier : vectorObject) {
+	statements
+}
+
+where identifier is a (reference) variable and the data type of (the object that) identifier (points to) is the same as the data type 
+of the objects that each vectorObject element points to. Also, type is either a primitive type or the name of a class.

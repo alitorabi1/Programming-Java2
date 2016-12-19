@@ -1,0 +1,6 @@
+100001 66666 BMW 2002 30 SailBoat: 1 1 Motor Type: NoEngine
+100002 5468977 Honda 2004 5  2  GasolineFuel
+100003 98745 Benz 2006 5  8  GasolineFuel
+100004 98745 Volvo 2006 9  1  GasolineFuel
+100006 45612 66 44 55  1  GasolineFuel
+100005 45912 36 84 55  2  GasolineFuel

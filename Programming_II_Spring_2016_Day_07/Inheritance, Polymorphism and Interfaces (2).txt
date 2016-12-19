@@ -1,0 +1,420 @@
+﻿Inheritance, Polymorphism and Interfaces (2)
+=============================================
+
+Polymorphism
+=============
+Java allows us to treat an object of a subclass as an object of its superclass. In other words, a reference variable of a superclass type can point to an object of its subclass. There are situations when this feature of Java can be used to develop generic code for a variety of applications.
+
+
+Consider the following statements. (The classes Person and PartTimeEmployee are as previously defined.)
+
+Person name, nameRef; //Line 1
+PartTimeEmployee employee, employeeRef; //Line 2
+name = new Person("John", "Blair"); //Line 3
+employee = new PartTimeEmployee("Susan", "Johnson", 12.50, 45); //Line 4
+
+The statement in Line 1 declares name and nameRef to be reference variables of type Person. Similarly, the statement in Line 2 declares employee and employeeRef to be reference variables of type PartTimeEmployee. The statement in Line 3 instantiates the object name and the statement in Line 4 instantiates the object employee.
+
+Now consider the following statements:
+nameRef = employee; //Line 5
+System.out.println("nameRef: " + nameRef); //Line 6
+
+
+The statement in Line 5 makes nameRef point to the object employee. After the statement in Line 5 executes, the object nameRef is treated as an object of the class PartTimeEmployee. The statement in Line 6 outputs the value of the object nameRef.
+
+The output of the statement in Line 6 is:
+nameRef: Susan Johnson's wages are: $562.5
+
+Notice that even though nameRef is declared as a reference variable of type Person, when the program executes, the statement in Line 6 outputs the first name, the last name, and the wages of a PartTimeEmployee. This is because when the statement in Line 6 executes to output nameRef, the method toString of the class PartTimeEmployee executes, not the method toString of the class Person. This is called late binding, dynamic binding, or run-time binding; that is, the method that gets executed is determined at execution time, not at compile time.
+
+
+Note:
+======
+Suppose that class C is a subclass of class B and that class B is a subclass of class A. Then, a reference variable of class A can point to an object of class B as well as to an object of class C. Thus, a reference variable of a superclass can point to an object of any of its descendent classes.
+
+In a class hierarchy, several methods may have the same name and the same formal parameter list. Also, a reference variable of a class can refer to either an object of its own class or an object of its subclass. Therefore, a reference variable can invoke, that is, execute, a method of its own class or of its subclass(es). 
+
+Binding means associating a method definition with its invocation, that is, determining which method definition gets executed. 
+• In early binding, a method’s definition is associated with its invocation when the code is compiled. 
+• In late binding, a method’s definition is associated with the method’s invocation at execution time, that is, when the method is executed. 
+
+Except for a few (special) cases, Java uses late binding for all methods. Furthermore, the term polymorphism means associating multiple (potential) meanings with the same method name. In Java, polymorphism is implemented using late binding.
+
+
+
+EXAMPLE 5
+==========
+public class RectangleFigure {
+   private double length;
+   private double width;
+   public RectangleFigure() {
+	   length = 0;
+	   width = 0;
+   }
+...
+
+   public String toString() {
+	return ("Length = " + length
+		+ "; Width = " + width + "\n"
+		+ "Area = " + area());
+	}
+...
+}
+
+
+Note that the definition of the class RectangleFigure is similar to the definition of the class Rectangle given previously. The method toString of the class RectangleFigure, in addition to returning the length and width, also prints the area of the rectangle.
+
+
+
+public class BoxFigure extends RectangleFigure {
+   private double height;
+   public BoxFigure() {
+	super();
+	height = 0;
+   }
+...
+
+   public String toString() {
+	return ("Length = " + getLength()
+		+ "; Width = " + getWidth()
+		+ "; Height = " + height
+		+ "\n"
+		+ "Surface Area = " + area()
+		+ "; Volume = " + volume());
+    }
+}
+
+Note that the class BoxFigure is derived from the class RectangleFigure. The definition of the class BoxFigure is similar to the definition of the class Box given previously. The method toString of the class BoxFigure, in addition to returning the length, width, and height, also returns the surface area and volume of the box.
+
+
+DEMO - create the class Polymorphism
+======
+Consider the following application program:
+// This program illustrates how polymorphic reference variables
+// work.
+public class Polymorphism
+
+In the preceding program, shapeRef is a reference variable of the RectangleFigure type. Because the class BoxFigure is derived from the class RectangleFigure, the reference variable shapeRef can point to an object of the class RectangleFigure or to an object of the class BoxFigure.
+
+The statement in Line 7 instantiates a RectangleFigure object and stores the address of this object in the reference variable rectangle. Similarly, the statement in Line 8 instantiates a BoxFigure object and stores the address of this object in the reference variable box.
+
+After the statement in Line 9 executes, shapeRef points to the object rectangle. The statement in Line 10 executes the method toString. Because shapeRef points to an object of the class RectangleFigure, the method toString of the class RectangleFigure executes. When the method toString of the class RectangleFigure executes, it also executes the method area. In this case, the method area of the class RectangleFigure executes.
+
+After the statement in Line 12 executes, shapeRef points to the object box. The statement in Line 13 executes the method toString. Because shapeRef points to an object of the class BoxFigure, the method toString of the class BoxFigure executes. When the method toString of the class BoxFigure executes, it also executes the method area. In this case, the method area of the class BoxFigure executes, which outputs the surface area of the box.
+
+
+NOTE
+=====
+If a method of a class is declared final, it cannot be overridden with a new definition in a derived class. You declare a method of a class final by using the keyword final. For example, the following method is final:
+public final void doSomeThing() {
+   //...
+}
+
+Similarly, you can also declare a class final using the keyword final. If a class is declared final, then no other class can be derived from this class; that is, it cannot be the superclass of any other classes.
+
+Java does not use late binding for methods that are marked private, final, or static.
+
+As illustrated above, a reference variable of a superclass type can point to an object of its subclass. However, you cannot automatically consider a superclass object to be an object of a subclass. In other words, you cannot automatically make a reference variable of a subclass type point to an object of its superclass.
+
+Suppose that supRef is a reference variable of a superclass type. Moreover, suppose that supRef points to an object of its subclass. You can use an appropriate cast operator on supRef and make a reference variable of the subclass point to the object. On the other hand, if supRef does not point to a subclass object and you use a cast operator on supRef to make a reference variable of the subclass point to the object, then Java will throw a ClassCastException—indicating that the class cast is not allowed.
+
+
+
+Operator instanceof
+===================
+As previously described, an object of a subclass type can be considered an object of the superclass type. Moreover, by using an 
+appropriate cast operator, you can treat an object of a superclass type as an object of a subclass type. To determine whether 
+a reference variable that points to an object is of a particular class type, Java provides the operator instanceof.
+
+Consider the following expression (suppose that p is an object of a class type):
+p instanceof BoxShape
+
+This expression evaluates to true if p points to an object of the class BoxShape; otherwise, it evaluates to false. The class 
+BoxShape is defined in 
+
+if (rectRef instanceof BoxShape) 
+System.out.println("rectRef is " 
+	+ "an instance of BoxShape");
+
+
+
+
+    public static void main(String[] args) {
+        int[] list = new int[10];
+        int j;
+        String name="";
+        Double doubleNum =0.0;
+        Scanner console = new Scanner(System.in);
+        if(console instanceof Scanner) {
+            System.out.println("console is "
+                    + "an instance of Scanner");
+        }
+        if(name instanceof String) {
+            System.out.println("name is "
+                    + "an instance of String");
+        }
+
+        if(doubleNum instanceof Double) {
+            System.out.println("doubleNum is "
+                    + "an instance of Double");
+        }
+
+    }
+
+
+
+
+Abstract Methods and Classes
+=============================
+An abstract method is a method that has only the heading with no body. The heading of an abstract method contains the 
+reserved word abstract and ends with a semicolon.
+
+The following are examples of abstract methods:
+
+public abstract object larger(object, object);
+void abstract insert(int insertItem);
+
+An abstract class is a class that is declared with the reserved word abstract in its heading. Following are some facts about abstract classes:
+• An abstract class can contain instance variables, constructors, the finalizer, and nonabstract methods.
+• An abstract class can contain an abstract method(s).
+• If a class contains an abstract method, then the class must be declared abstract.
+• You cannot instantiate an object of an abstract class. You can only declare a reference variable of an abstract class type.
+• You can instantiate an object of a subclass of an abstract class, but only if the subclass gives the definitions of all the abstract methods of the superclass.
+
+The following is an example of an abstract class:
+
+public abstract class AbstractClassExample {
+    protected int x;
+    public abstract void print();
+    public void setX(int a)
+    {
+        x = a;
+    }
+    public AbstractClassExample()
+    {
+        x = 0;
+    }
+}
+
+Abstract classes are used as superclasses from which other subclasses within the same context can be derived. They serve as placeholders to store members common to all subclasses. They can be used to force subclasses to provide certain methods
+
+
+EXAMPLE 
+========
+Banks offer various types of accounts, such as savings, checking, certificate of deposits, and money market, to attract customers as well as to meet their specific needs. In this example, we illustrate how to use abstract classes and polymorphism for processing different kinds of bank accounts.
+
+Two of the most commonly used accounts are savings and checking. Each of these accounts has various options. For example, you may have a savings account that requires no minimum balance, but has a lower interest rate. Similarly, you may have a checking account that limits the number of checks that you can write each month. Another type of account that is used to save money for the long term is a certificate of deposit (CD). To illustrate how abstract classes are designed and how polymorphism works we assume that the bank offers three types of accounts—savings, checking, and certificate of deposit, as described next.
+
+◘ Savings accounts: Suppose that the bank offers two types of savings accounts: one that has no minimum balance and has a lower interest rate and another that requires a minimum balance and has a higher interest rate.
+
+◘ Checking accounts: Suppose that the bank offers three types of checking accounts: one with a monthly service charge, a limited number of monthly check writing, no minimum balance, and no interest; another with no monthly service charge, requires a minimum balance, allows an unlimited number of monthly check writing, pays lower interest; and a third with no monthly service charge, requires a higher minimum balance, has a higher interest rate, and allows an unlimited number of monthly check writing.
+
+◘ Certificate of deposit (CD): In an account of this type, money is left for some time and these accounts draw higher interest rates than either savings or checking accounts. 
+
+Suppose that you purchase a CD for six months. Then we say that the CD will mature in six months. Furthermore, the penalty for early withdrawal is stiff.
+
+Figure 7 shows the inheritance hierarchy of these bank accounts.
+
+Note that the classes BankAccount and CheckingAccount are abstract. That is, we cannot instantiate objects of these classes. Typically, common characteristics are placed as high as possible in the inheritance hierarchy and these characteristics are inherited by the subclasses. The other classes are not abstract. Next we describe each of these classes in more detail.
+
+♦ BankAccount: Every bank account has an account number, the name of the owner, and a balance. Therefore, instance variables name, accountNumber, and balance are declared in the abstract class BankAccount. Some operations common to all types of accounts are to retrieve the account owner’s name, the account number, the account balance, make deposits, withdraw money, and create a monthly statement. So we include methods to implement these operations. Furthermore, some of these methods will be abstract. We also include the method toString to return the appropriate information about the class as a string.
+
+♦ CheckingAccount: A checking account is a bank account. Therefore, it inherits all the properties of a bank account. Because one of the objectives of a checking account is to be able to write checks, we include the abstract method writeCheck to write checks.
+
+♦ ServiceChargeChecking: A service charge checking account is a checking account. Therefore, it inherits all the properties of a checking account. For simplicity we assume that this type of account does not pay any interest, allows the account holder to write a limited number of checks each month, and does not require any minimum balance.
+
+
+♦ NoServiceChargeChecking: A checking account with no monthly service charge is a checking account. Therefore, it inherits all the properties of a checking account. Furthermore, this type of account pays interest, allows the account holder to write checks, and requires a minimum balance.
+
+♦ HighInterestChecking: A checking account with high interest is a checking account with nomonthly service charge. Therefore, it inherits all the properties of a no service charge checking account. Furthermore, this type of account pays higher interest and requires higher minimum balance than the no service charge checking account.
+
+♦ SavingsAccount: A savings account is a bank account. Therefore, it inherits all the properties of a bank account. Furthermore, a savings account also pays interest.
+
+♦ HighInterestSavings: A high interest savings account is a savings account. Therefore, it inherits all the properties of a savings account. It also requires a minimum balance.
+
+♦ CertificateOfDeposit: A certificate of deposit account is a bank account. Therefore, it inherits all the properties of a bank account. In addition, it has instance variables to store the number of CD maturity months, the interest rate, and the current CD month. 
+
+
+
+To create various types of accounts, we can use a Vector object. A Vector object can increase in size if additional accounts are needed to be created. The elements of the Vector are of type BankAccount, and six different kinds of bank accounts can be instantiated. The following statement created the Vector object accountsList and the element type is BankAccount:
+
+	Vector <BankAccount> accountsList = new Vector <BankAccount>();
+
+We leave it as an exercise for you to write the definitions of the classes described in this example as well as a program to test these classes. (See Programming Exercise).
+
+
+
+Interfaces
+===========
+In previous units, you learned that the class ActionListener is a special type of class called an interface. Several other classes in Java are similar to the interface ActionListener. For example, window events are handled by the interface WindowListener, and mouse events are handled by the interface MouseListener.
+
+The obvious question is: Why does Java have these interfaces? After all, they are similar to classes. The answer is that Java does 
+not support multiple inheritance; a class can extend the definition of only one class. In other words, a class can be derived from 
+only one existing class. However, a Java program might contain a variety of GUI components and thus generate a variety of events, 
+such as window events, mouse events, and action events. These events are handled by separate interfaces. 
+Therefore, a program might need to use more than one such interface.
+
+
+Until now, we have handled events by using the mechanism of the inner class. For example, action events were processed by 
+using inner classes. There are two more ways to process events in a Java program: by using anonymous classes and by making 
+the class containing the application program implement the appropriate interface.
+
+When we created an inner class to process an action event, the inner class was built on top of the interface ActionListener by using the mechanism of implements. Rather than use the inner class mechanism, the class containing the Java program can itself be created on top of ("by implementing") an interface, just as we created the GUI program by extending the class JFrame. For example, for the RectangleProgram, we could have defined the class RectangleProgram as follows:
+
+public class RectangleProgram extends JFrame implements ActionListener
+{
+	//...
+}
+
+Of course, doing so would also require us to register the listener using the reference this.
+
+To be able to handle a variety of events, Java allows a class to implement more than one interface. This is, in fact, how Java implements a form of multiple inheritance, which is not true multiple inheritance. 
+
+You already know that an interface is a special type of class. How does an interface differ from an actual class?
+
+An interface is a type of class that contains only abstract methods and/or named constants. Interfaces are defined using the reserved word interface in place of the reserved word class. For example, the definition of the interface WindowListener is: 
+
+public interface WindowListener
+{
+   public void windowOpened(WindowEvent e);
+   public void windowClosing(WindowEvent e);
+   public void windowClosed(WindowEvent e);
+   public void windowIconified(WindowEvent e);
+   public void windowDeiconified(WindowEvent e);
+   public void windowActivated(WindowEvent e);
+   public void windowDeactivated(WindowEvent e);
+}
+
+The definition of the interface ActionListener is:
+public interface ActionListener
+{
+   public void actionPerformed(ActionEvent e);
+}
+
+
+The following class implements the interfaces ActionListener and WindowListener:
+public class ExampleInterfaceImp implements ActionListener, WindowListener
+{
+	//....
+}
+
+
+Recall that if a class contains an abstract method, it must be declared abstract. Moreover, you cannot instantiate an object of an 
+abstract class. Therefore, if a class implements an interface, it must provide definitions for each of the methods of the interface; 
+otherwise, you cannot instantiate an object of that class type.
+
+
+Polymorphism Via Interfaces
+===========================
+As stated above, one of the main uses of interfaces is to allow GUI programs to handle more than one type of event such as 
+window events, mouse events, and action events. These events are handled by separate interfaces. 
+
+An interface can also be used in the implementation of abstract data types. Like some other languages, such as C++, you cannot 
+separate the definition of a class from the definitions of its methods. If the user of a class looks at the definition of the class, the 
+user can also look at the definitions of the methods. That is, implementation details of a class cannot be (directly) separated from 
+its specification details. In reality, the user of a class should only be concerned with the specification, not the implementation. 
+One way to accomplish this is to define an interface that contains the methods headings and/or named constants. 
+Then you can define the class that implements the interface. The user can look at the interface and see what operations are 
+implemented by the class.
+
+
+Just as you can create polymorphic references to classes in an inheritance hierarchy, you can also create polymorphic references 
+using interfaces. You can use an interface name as the type of a reference variable, and the reference variable can point to any 
+object of any class that implements the interface. However, because an interface contains only method headings and/or named 
+constants, you cannot create an object of an interface. 
+
+Suppose that you have the following interface:
+
+public interface Employee
+{
+   public double wages();
+   public String department();
+}
+
+
+Now you declare a reference variable using the interface Employee. For example, the following statement declares newEmployee 
+to be a reference variable of type Employee:
+Employee newEmployee;
+
+However, the following statement is illegal because you cannot instantiate an object of an interface:
+newEmployee = new Employee(); //illegal 
+
+Suppose that you have two types of employees—part-time and full-time. You can define the class FullTimeEmployee that 
+implements the interface Employee. You can use the reference variable newEmployee to create an object of the class 
+FullTimeEmployee. 
+
+For example, the following statement creates an object of this class:
+newEmployee = new FullTimeEmployee();
+
+The following statement invokes the methods wages:
+double salary = newEmployee.wages();
+
+In a similar manner, if the class PartTimeEmployee implements the interface Employee, the following statement creates an object 
+of this class:
+
+newEmployee = new PartTimeEmployee();
+
+In addition to implementing methods of the interface Employee, the class FullTimeEmployee can contain additional methods. 
+Suppose that the class FullTimeEmployee contains the method
+
+
+
+Composition (Aggregation)
+=========================
+Composition is another way to relate two classes. In composition (aggregation), one or more members of a class are objects of 
+one or more other classes. Composition can be viewed as a ‘‘has-a’’ relation; for example, "every person has a date of birth."
+
+
+The class Person, for example, stores a person’s first name and last name. Suppose we want to keep track of additional information, such as a personal ID and date of birth. Because every person has a personal ID and a date of birth, we can define a new class PersonalInfo, in which one of the members is an object of type Person. We can declare additional members to store the personal ID and date of birth for the class PersonalInfo.
+
+
+First, we define another class, Date, to store only a person’s date of birth, and then construct the class PersonalInfo from the classes Person and Date. This way, we can demonstrate how to define a new class using two classes.
+
+To define the class Date, we need three instance variables to store the month, day number, and year. Some of the operations that need to be performed on a date are to set the date and to print the date. The following statements define the class Date:
+
+
+public class Date
+{
+private int dMonth; //variable to store the month
+private int dDay; //variable to store the day
+private int dYear; //variable to store the year
+
+...
+
+
+The definition of the method setDate, before storing the date into the data members, does not check to see if the date is valid. That is, it does not confirm that month is between 1 and 12, year is greater than 0, and day is valid (for example, for January, day should be between 1 and 31). 
+
+Next, we specify the members of the class PersonalInfo.
+
+Instance Variables:
+private Person name;
+private Date bDay;
+private int personID;
+
+Constructors and Instance Methods:
+
+public void setPersonalInfo(String first, String last, int month,
+int day, int year, int ID)
+//Method to set the personal information
+//Instance variables are set according to the parameters
+//Postcondition: firstName = first; lastName = last;
+// dMonth = month; dDay = day; dYear = year;
+// personID = ID;
+
+public String toString()
+//Method to return the string containing personal information
+
+public PersonalInfo(String first, String last, int month,
+int day, int year, int ID)
+//Constructor with parameters
+//Instance variables are set according to the parameters
+//Postcondition: firstName = first; lastName = last;
+// dMonth = month; dDay = day; dYear = year;
+// personID = ID;
+
+public PersonalInfo()
+//Default constructor
+//Instance variables are set to the default values
+//Postcondition: firstName = ""; lastName = "";
+// dMonth = 1; dDay = 1; dYear = 1900;
+// personID = 0;

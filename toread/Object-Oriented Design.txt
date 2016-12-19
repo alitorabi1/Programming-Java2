@@ -1,0 +1,168 @@
+Object-Oriented Design
+==================
+Using the class String, you can create various String objects. Moreover, using the methods of the class String, you can manipulate the string stored in a String object. Recall that String objects are instances of the class String. In general, an object is an instance of a particular class.
+
+General concept of objects and how they are used in object-oriented design (OOD). 
+=============
+OOD is a major field of study in its own right. Most colleges and universities offer courses on this topic. This section by no means presents an in-depth treatise on OOD. Rather, we review its general concepts and give a simplified methodology for using the OOD approach to problem solving.
+
+In your daily life you use objects such as a DVD player, CD player, and so on without realizing how they might be conceptualized as objects or classes. For example, regarding a DVD player, note the following facts:
+
+• To use a DVD player, you do not need to know how the DVD player is made. You do not need to know the internal parts of a DVD player or how they work. These are hidden from you.
+
+• To use a DVD player, you do need to know the functions of various buttons and how to use them.
+
+• Once you know how to use a DVD player, you can use it either as a stand-alone device or you can combine it with other devices to create an entertainment system.
+
+• You cannot modify the functions of a DVD player. The Play button will always function as a Play button.
+
+Any Java objects, such as String objects, that you have encountered also have the  properties mentioned above. You can use the objects and their methods, but you don’t need to know how they work.
+
+The aim of OOD is to build software from components called classes so that if someone wants to use a class, all they need to know is the various methods provided by that class. 
+
+Recall that in OOD, an object combines data and operations on that data in a single unit, a feature called encapsulation. In OOD, we first identify the object, then identify the relevant data, and then identify the operations needed to manipulate the object.
+
+For example, the relevant data for a String object is the actual string and the length of the string, that is, the number of characters in the string. Every String object must have memory space to store the relevant data, that is, the string and its length. Next, we must identify the type of operations performed on a string. Some of the operations on a string might be to replace a particular character of a string, extract part of a string, change a string from uppercase to lowercase, and so on. The class String provides the necessary operations to be performed on a string.
+
+As another example of how an object contains both data and operations on that data, consider objects of type JButton. Because every button has a label, which is a string, every button must have memory space to store its label. Some of the operations on a button that you have encountered are to set the label of the button and to add a listener object to a button. Other operations that can be performed on a button are to set its size and location. These operations are the methods of a class. Thus, the class JButton provides the methods to set a button’s size and location.
+
+A Simplified OOD Methodology
+========================
+Now that you have an overview of objects and the essential components of OOD, you may be eager to learn how to solve a particular problem using OOD methodology. The best way to learn is by practice. A simplified OOD methodology can be expressed as follows:
+
+1. Write down a detailed description of the problem.
+
+2. Identify all the (relevant) nouns and verbs.
+
+3. From the list of nouns, select the objects. Identify the data components of each object.
+
+4. From the list of verbs, select the operations.
+
+In item 3, after identifying the objects or classes, usually you will realize that several objects function in the same way. That is, they have the same data components and same operations. In other words, they will lead to the construction of the same class. 
+
+Remember that objects are nothing but instances of a particular class. Therefore, to create objects you have to learn how to create classes. In other words, to create objects you first need to create classes; to know what type of classes to create, you need to know what an object stores and what operations are needed to manipulate an object’s data. You can see that objects and classes are closely related. Because an object consists of data and operations on the data in a single unit, in Java we use the mechanism of
+classes to combine data and its operations in a single unit. In OOD methodology, we therefore identify classes, data members of classes, and operations. In Java, data members are also known as fields.
+
+EXAMPLE 
+=========
+Consider the problem presented here:
+The program prompts the user to input the length and width of a rectangle and then displays its area and perimeter.
+
+In simple terms, the problem can be stated as follows:
+
+‘‘Write a program to input the length and width of a rectangle and calculate and print the perimeter and area of the rectangle.’’
+
+Step 1: Identify all the (relevant) nouns.
+============================
+• Length
+• Width
+• Perimeter
+• Area
+• Rectangle
+
+Step 2: Identify the class(es).
+=====================
+Considering all five nouns, it is clear that:
+• Length is the length of a rectangle.
+• Width is the width of a rectangle.
+• Perimeter is the perimeter of a rectangle.
+• Area is the area of a rectangle.
+
+Notice that four of the five nouns are related to the fifth one, namely, rectangle. Therefore, choose Rectangle as a class. From the class Rectangle, you can instantiate rectangles of various dimensions. 
+
+Step 3: Identify the data members for each of the classes.
+=======================
+In this step, you evaluate the remaining nouns and determine the information that is essential to fully describing each class. Therefore, consider each noun—length, width, perimeter, and area—and ask: ‘‘Is each of these nouns essential for describing the rectangle?’’
+
+• Perimeter is not needed, because it can be computed from length and width. Perimeter is not a data member.
+• Area is not needed, because it can be computed from length and width. Area is not a data member.
+• Length is required. Length is a data member.
+• Width is required. Width is a data member.
+
+Step 4: Identify the operations for each of the classes.
+======================
+Many operations for a class or an object can be determined by looking at the list of verbs. Let us consider the verbs input, calculate, and print. The possible operations on a rectangle object are input the length and width, calculate the perimeter and area, and print the perimeter and area. In this step, we focus on the functionalities of the class(es) involved.
+
+By carefully reading the problem statement, you may conclude that you need at least the following operations:
+
+• setLength: Set the length of the rectangle.
+• setWidth: Set the width of the rectangle.
+• computePerimeter: Calculate the perimeter of the rectangle.
+• computeArea: Calculate the area of the rectangle.
+• print: Print the perimeter and area of the rectangle.
+
+It is customary to include operations to retrieve the values of the data members of an object. Therefore, you also need the following operations:
+• getLength: Retrieve the length of the rectangle.
+• getWidth: Retrieve the width of the rectangle.
+
+With these steps completed, you can design an algorithm for each operation of an object (class) and implement each algorithm in Java.
+
+
+EXAMPLE 
+=========
+Consider the following problem:
+A place to buy candy is from a candy machine. A new candy machine is purchased for the cafeteria, but it is not working properly. The candy machine has four dispensers to hold and release items sold by the candy machine as well as a cash register. The machine sells four products—candies, chips, gum, and cookies—each stored in a separate dispenser. You have been asked to write a program for this candy machine so that it can be put into operation.
+
+The program should do the following:
+==========================
+• Show the customer the different products sold by the candy machine.
+• Let the customer make the selection.
+• Show the customer the cost of the item selected.
+• Accept the money from the customer.
+• Return the change.
+• Release the item, that is, make the sale.
+
+The OOD solution to this problem proceeds as follows:
+==============
+Step 1: Identify all the nouns.
+======================
+Place, candy, candy machine, cafeteria, dispenser, items, cash register, chips, gum, cookies, customer, products, cost (of the item), money, and change.
+
+In this description of the problem, products stand for items such as candy, chips, gum, and cookies. In fact, the actual product in the machine is not that important. What is important is to note that there are four dispensers, each capable of dispensing one product. Further, there is one cash register. Thus, the candy machine consists of four dispensers and one cash register.
+
+Step 2: Identify the class(es).
+=====================
+You can see that the program you are about to write is supposed to deal with dispensers and cash registers. That is, the main objects are four dispensers and a cash register. Because all the dispensers are of the same type, you need to create a class, say, Dispenser, to create the dispensers. Similarly, you need to create a class, say, CashRegister, to create a cash register. We will create the class CandyMachine containing the four dispensers, a cash register, and the application program.
+
+Step 3: Identify the data members for each of the class(es).
+========================
+Dispenser To make the sale, at least one item must be in the dispenser and the customer must know the cost of the product. Therefore, the data members of a dispenser are:
+• Product cost
+• Number of items in the dispenser
+
+Cash Register The cash register accepts money and returns change. Therefore, the cash register has only one data member, which we call cashOnHand.
+
+Candy Machine The class CandyMachine has four dispensers and a cash register. You can name the four dispensers by the items they store. Therefore, the candy machine has five data members—four dispensers and a cash register.
+
+Step 4: Identify the operations for each of the objects (classes).
+======================
+The relevant verbs are show (selection), make (selection), show (cost), accept (money), return (change), and make (sale).
+
+The verbs show (selection) and make (selection) relate to the candy machine. The verbs show (cost) and make (sale) relate to the dispenser. Similarly, the verbs accept (money) and return (change) relate to the cash register.
+
+Dispenser The verb show (cost) applies to either printing or retrieving the value of the data member cost. The verb make (sale) applies to reducing the number of items in the dispenser by 1. Of course, the dispenser has to be nonempty. You must also provide an operation to set the cost and the number of items in the dispenser. Thus, the operations for a dispenser object are:
+• getCount: Retrieve the number of items in the dispenser.
+• getProductCost: Retrieve the cost of the item.
+• makeSale: Reduce the number of items in the dispenser by 1.
+• setProductCost: Set the cost of the product.
+• setNumberOfItems: Set the number of items in the dispenser.
+
+Cash Register The verb accept (money) applies to updating the money in the cash register by adding the money deposited by the customer. Similarly, the verb return (change) applies to reducing the money in the cash register by returning the overpaid amount (by the customer) to the customer. You also need to (initially) set the money in the cash register and retrieve the money from the cash register. Thus, the possible operations on a cash register are:
+• acceptAmount: Update the amount in the cash register.
+• returnChange: Return the change.
+• getCashOnHand: Retrieve the amount in the cash register.
+• setCashOnHand: Set the amount in the cash register.
+
+Candy Machine The verbs show (selection) and make (selection) apply to the candy machine. Thus, the two possible operations are:
+• showSelection: Show the number of products sold by the candy machine.
+• makeSelection: Allow the customer to select the product.
+
+
+
+
+
+
+
+
+
+

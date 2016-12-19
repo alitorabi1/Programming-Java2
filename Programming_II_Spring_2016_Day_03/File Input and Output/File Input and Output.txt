@@ -1,0 +1,129 @@
+﻿File Input/Output
+=================
+The previous notes discussed in some detail how to get input from the keyboard (standard input device) and send output to the screen (standard output device). However, getting input from the keyboard and sending output to the screen has limitations. If the amount of input data is large, it is inefficient to type it at the keyboard each time you run a program. In addition to the inconvenience of typing large amounts of data, typing can generate errors, and unintentional typos cause erroneous results. Sending output to the screen works well if the amount of data is small (no larger than the size of the screen), but suppose you want to distribute the output in a printed format? The solution to these problems is to use an alternate form of input and output: files. By using a file as a source of input data, you can prepare the data before running a program, and the program can access the data each time it runs. Saving output to a file allows the output to be saved and distributed to others, and the output produced by one program can be used as input to other programs.
+
+Java allows a program to get data from, and save output to, secondary storage. A program can use the file I/O and read data from or write data to a file. Formally, a file is defined as follows:
+
+File: An area in secondary storage used to hold information.
+
+You learned how to use a Scanner object to input data from the standard input device. Recall that the following statement creates the Scanner object console and initializes it to the standard input device:
+	Scanner console = new Scanner(System.in);
+
+You can also initialize a Scanner object to input sources other than the standard input device by passing an appropriate argument in place of the object System.in. 
+
+To do this, we use the class FileReader as follows. (The class FileReader is contained in the package java.io.) Suppose that the input data is stored in a file, say, prog.dat. The following statement creates the Scanner object inFile and initializes it to the file prog.dat:
+
+
+Scanner inFile = new Scanner(new FileReader("prog.dat")); //Line 1
+
+
+NOTE:
+=====
+The statement in Line 1 assumes that the file prog.dat is in the same directory (subdirectory) as your program. However, if this is in a different directory (subdirectory), then you must specify the path where the file is located, along with the name of the file.
+
+For example, suppose that the file prog.dat is on a flash memory in drive H. Then, the statement in Line 1 should be modified as follows:
+
+	Scanner inFile = new Scanner(new FileReader("h:\\prog.dat"));
+
+Note that there are two \ after h:. Recall that in Java \ is the escape character. Therefore, to produce a \ within a string you need \\. 
+
+To send the output to a file, you use the class PrintWriter. This class is contained in the package java.io.
+
+To summarize, Java file I/O is a four-step process:
+1. Import the necessary classes from the packages java.util and java.io into the program.
+2. Create and associate the appropriate objects with the input/output sources.
+3. Use the appropriate methods associated with the variables created in Step 2 to input/output the data.
+4. Close the files.
+
+We now explain these four steps and then provide a skeleton program that shows how the steps might appear in a program.
+
+Step 1 requires that the necessary classes be imported from the packages java.util and java.io. The following statements accomplish this task:
+
+	import java.util.*;
+	import java.io.*;
+
+Step 2 requires that you create and associate appropriate class variables with the input/ output sources. We already discussed how to declare and associate Scanner objects for inputting the data from a file. The next section describes how to create the appropriate objects to send the output to a file.
+
+Step 3 requires us to read the data from the input file using the variables created in Step 2.
+
+In Step 4, you close the input and output files. To do so, you use the method close.
+
+EXAMPLE
+========
+Suppose an input file, say employeeData.txt, consists of the following data:
+
+	Emily Johnson 45 13.50
+
+The file consists of an employee’s name, the number of hours the employee worked, and the pay rate. The following statements declare the appropriate variables to read and store the data into the variables:
+
+//Create and associate the Scanner object to the input source
+Scanner inFile = new Scanner(new FileReader("employeeData.txt"));
+
+String firstName; //variable to store first name
+String lastName; //variable to store last name
+
+double hoursWorked; //variable to store hours worked
+double payRate; //variable to store pay rate
+double wages; //variable to store wages
+
+firstName = inFile.next(); //get the first name
+lastName = inFile.next(); //get the last name
+
+hoursWorked = inFile.nextDouble(); //get hours worked
+payRate = inFile.nextDouble(); //get pay rate
+
+wages = hoursWorked * payRate;
+
+
+The following statement closes the input file to which inFile is associated:
+inFile.close(); //close the input file
+
+
+
+Storing (Writing) Output to a File
+==================================
+To store the output of a program in a file, you use the class PrintWriter. You declare a PrintWriter variable and associate this variable with the destination, that is, the file where the output will be stored. Suppose the output is to be stored in the file prog.out. Consider the following statement:
+PrintWriter outFile = new PrintWriter("prog.out");
+
+This statement creates the PrintWriter object outFile and associates it with the file prog.out. (This statement assumes that the file prog.out is to be created in the directory [subdirectory] where the main program is.)
+
+
+NOTE
+=====
+If you want the output file to be stored, say, on a flash memory in drive H, then the previous statement takes the following form:
+PrintWriter outFile = new PrintWriter("h:\\prog.out");
+
+You can now use the methods print, println, and printf with outFile in the same way they have been used with the object System.out.
+
+For example, the statement:
+outFile.println("The paycheck is: $" + pay);
+
+stores the output—The paycheck is: $565.78—in the file prog.out. This statement assumes that the value of the variable pay is 565.78.
+
+
+Once the output is completed, Step 4 requires closing the file. You close the input and output files by using the method close. For example, assuming that inFile and outFile are as declared before, the statements to close these files are:
+inFile.close();
+outFile.close();
+
+
+Closing the output file ensures that the buffer holding the output will be emptied, that is, the entire output generated by the program will be sent to the output file.
+
+Step 3 requires that you create appropriate objects for file I/O. In the case of an input file, the file must exist before the program executes. If the input file does not exist, then the statement to associate the object with the input file fails and it throws a FileNotFoundException. At this time, we will not require the program to handle this exception, so the method main will also throw this exception. Therefore, the heading of the method main must contain an appropriate command to throw a FileNotFoundException.
+
+
+An output file does not have to exist before it is opened; if the output file does not exist, the computer prepares an empty file for output. If the designated output file already exists, by default, the old contents are erased (lost) when the file is opened. Note that if the program is not able to create or access the output file, it throws a FileNotFoundException.
+
+
+NOTE:
+=====
+(throws clause) During program execution, various things can happen—for example, division by zero or inputting a letter for a number. If such things happen, the system would not tolerate it. In such cases, we say that an exception has occurred. If an exception occurs in a method, then the method should either handle the exception or throw it for the calling environment to handle. If an input file does not exist, the program throws a FileNotFoundException. Similarly, if an output file cannot be created or accessed, the program throws a FileNotFoundException. For the next few chapters, we will not be concerned with the handling of the exceptions; we will simply throw the exceptions.
+
+Because we do not need the method main to handle the FileNotFoundException, we will include a command in the heading of the method main to throw the FileNotFoundException. Chapter 11 describes exception handling.
+
+
+
+
+
+
+
+

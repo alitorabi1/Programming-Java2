@@ -1,0 +1,12 @@
+Customer
+Dock
+Slip
+Boat
+Powerboat
+Sailboat
+Rowboat 
+Lease
+AnnualLease
+DailyLease
+OneDayLease 
+BoatServiceRecord

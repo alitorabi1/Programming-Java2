@@ -1,0 +1,29 @@
+Using Dialog Boxes for Input/Output
+====================================
+Recall that you have already used the class Scanner to input data into a program from the keyboard, and you used the object System.out to output the results to the screen.
+
+Another way to gather input and output results is to use a graphical user interface (GUI). Java provides the class JOptionPane, which allows the programmer to use GUI components for I/O. This section describes how to use these facilities to make I/O more efficient and the program more attractive.
+
+The class JOptionPane is contained in the package javax.swing. The two methods of this class that we use are: showInputDialog and showMessageDialog.
+
+The method showInputDialog allows the user to input a string from the keyboard;
+the method showMessageDialog allows the programmer to display the results.
+
+The syntax to use the method showInputDialog is:
+	str = JOptionPane.showInputDialog(stringExpression);
+
+
+where str is a String variable and stringExpression is an expression evaluating to a string.When this statement executes, a dialog box containing stringExpression appears on the screen prompting the user to enter the data. (The stringExpression usually informs the user what to enter.) The data entered is returned as a string and assigned to the variable str.
+
+Consider the following statement (suppose that name is a String variable):
+	name = JOptionPane.showInputDialog("Enter your name and press OK");
+
+After you enter a name and click the OK button (or press the Enter key), the dialog box disappears and the entered name is assigned to the variable name.
+
+
+Let’s turn to the method showMessageDialog for output. The syntax to use the method showMessageDialog is:
+	JOptionPane.showMessageDialog(parentComponent,
+		messageStringExpression,
+			boxTitleString, messageType);
+
+

@@ -1,0 +1,63 @@
+Implementing Classes and Operations
+===================================
+It is clear that once the relevant classes, data members of each class, and relevant operations for each class are identified, 
+
+the next step is to implement these things in Java. Because objects are nothing but instances of classes, we need to learn 
+
+how to implement classes in Java. Implementing data members, that is, fields, of classes is simple because you need variables 
+
+to store the data.
+
+What about operations? 
+=======================
+In Java, we write algorithms to implement operations. Because there is usually more than one operation on an object, 
+
+each algorithm is implemented with the help of Java’s methods (predefined methods). However, Java does not provide all 
+
+the methods that you will ever need. Therefore, to learn how to design and implement classes, you first must learn how to 
+
+construct and implement your own methods. Because methods are an essential part of Java (or any programming language).
+
+Primitive Data Types and the Wrapper Classes
+============================================
+In some previous labs, we used the method parseInt of the class Integer to convert an integer string into an integer. 
+The class Integer is called a wrapper class, or simply a wrapper. It is used to wrap int values into Integer objects so 
+that int values can be regarded as objects. Similarly, the class Long is used to wrap long values into Long objects, 
+the class Double is used to wrap double values into Double objects, and the class Float is used to wrap float values into 
+Float objects. In fact, Java provides a wrapper class corresponding to each primitive data type. 
+For example, the wrapper class corresponding to the type int is Integer.
+
+Consider the following statements:
+Integer num; //Line 1
+num = new Integer(86); //Line 2
+
+The statement in Line 1 declares num to be a reference variable of type Integer. The statement in Line 2 creates an 
+Integer object, stores the value 86 in it, and then stores the address of this object into num.
+
+As you can see, the int value 86 is wrapped into an Integer object. Just like the class String, the class Integer does not 
+provide any method to change the value of an existing Integer object. That is, Integer objects are immutable. 
+(In fact, wrapper class objects are immutable.)
+
+
+As of Java 5.0, Java has simplified the wrapping and unwrapping of primitive type values, called the autoboxing 
+and auto-unboxing of primitive types. For example, consider the following statements:
+
+int x; //Line 3
+Integer num; //Line 4
+
+The statement in Line 3 declares the int variable x; the statement in Line 4 declares num to be a reference variable of type Integer.
+
+Consider the statement:
+
+num = 25; //Line 5
+
+For the most part, this statement is equivalent to the statement:
+
+num = new Integer(25); //Line 6
+
+That is, after the execution of either of these statements, num refers to or points to an Integer object with value 25. 
+The expression in Line 5 is referred to as autoboxing of int type.
+
+Autoboxing and -unboxing of primitive types is a new feature of Java and is available in Java 5.0 and higher versions. 
+It automatically boxes and unboxes primitive type values into appropriate objects. 
+For example, as explained above, int values can be automatically boxed and unboxed into Integer objects.

@@ -1,0 +1,9 @@
+Bill Robinson
+Gross Amount: 		$3575.00
+Federal Tax: 		$15.00
+State Tax: 		$3.50
+Social Security Tax: 		$5.75
+Medicare/Medicaid Tax: 		$2.75
+Pension Plan: 		$5.00
+Health Insurance: 		$75.00
+Net Pay: 		$2356.00
